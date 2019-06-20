@@ -1,2 +1,2 @@
-# WordGuessGame
-I made hangman fun!
+# Hangman
+Ready for a new and improved Hangman?
