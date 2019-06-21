@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Know Your Chef | Chefs Table </title>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/hangmanstyle.css">
 
@@ -22,16 +24,53 @@
         </h1>
     </header>
 
-    <section class="gamecontainer container">
-        <p class='part3 directions'>Let's test your culinary knowledge!</p>
-        <p class='part3 directions'>Guess which Chef's Table chef I am thinking of with your choice of utensil.
+    <section class="gamecontainer" id="opening">
+        <p class='part3 intro'>Let's test your culinary knowledge!</p>
+        <p class='part3 intro'>Guess which Chef's Table chef I am thinking (Choose your utensil):
         </p>
-        <button class='part3 fork button'>Fork</button> <br>
-        <button class='part3 spoon button'>Spoon</button><br>
-        <button class='part3 knife button'>Knife</button><br>
-        <button class='part3 chopstick button'>Chopstick</button>
-
+        <button type='button' class='part3 fork start button' id='fork'>Fork</button> <br>
+        <button type='button' class='part3 spoon start button'id='spoon'>Spoon</button><br>
+        <button type='button' class='part3 knife start button' id='knife'>Knife</button><br>
+        <button type='button' class='part3 chopstick start button ' id='chopstick'>Chopstick</button>
+        <!--WHY DO I NEED BUTTON IN CLASS AND WITHING <> FOR THE CSS TO WORK FOR PSUEDO CLASSES?-->
     </section>
+    <section class="gamecontainer" id="game">
+        <p class='part3 direction'>Type the letter you want to guess.</p>
+        <p class='part3 direction'>(A hint is available below.)</p>
+        <div class='displayword part1' id='displayword'></div>
+        <div class='gamesstats container-fluid'>
+            <div class='row'>
+                <p class='part4 col-4 single'>Guesses Remaining: <span id='remain' class='answer'></span></p>
+                <p class='part4 col-4 single'>Letters Guessed: <span id='guess' class='answer'></span></p>
+                <p class='part4 col-4 single tip'> Hint Here <span id='hint' class='hint'></span></p>
+            </div>
+            <div class='row'>
+                <p class='part4 col-6 overall'>Words left: <span id='wordsremain'></span></p>
+                <p class='part4 col-6 overall'>Total wins: <span id='wins'></span> / 10</p>
+            </div>
+        </div>
+        <section class='resultscontainer container' id="result">
+            <div class="row result">
+                <div class='chefphoto col-5'>
+                    <img src='' id='chefimage' alt='Chef Photo'>
+                </div>
+                <div class='col-1'></div>
+                <div class='stat col-6'>
+                    <div class='info' id='chefstat'>
+                        <p class='part1r'>Restaurant: <spam id='restaurant' class='part2r'></spam></p>
+                        <p class='part1r'>Location: <spam id='location' class='part2r'></spam></p>
+                    </div>
+                    <!--Provides stats and additional info-->
+                    <h2 class='part2r' id='result'></h2>  
+                </div>
+                <!--provides that result-->
+                <button type='button' class=" part2r next-button button" id="next">Guess Next Chef</button>
+            </div>
+
+        </section>
+    </section>
+
+
 
 
 </body>
