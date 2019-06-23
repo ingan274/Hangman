@@ -112,11 +112,11 @@ var chefpic = document.getElementById('chefimage');
 
 var chefstatT = document.getElementById('chefstat');
 
-var location;
+var locationT = document.getElementById('location');
 
-var restaurant;
+var restaurantT = document.getElementById('restaurant');
 
-var result;
+var resultT = document.getElementById('result');
 
 var nextbutton = document.getElementById('next');
 
@@ -157,10 +157,6 @@ function selectchef() {
     console.log(chefname);
     // set image = 
     chefface = currentchef.image;
-    // set logation =
-    location = currentchef.location
-    // set restaurat = 
-    restaurant = currentchet.restraunt;
 };
 
 //Initialize the GAME 
@@ -205,8 +201,8 @@ var guessreset = function () {
 
 // Show Stats
 function showdeets() {
-    chefstatT.style.display = "none";
-    chefpic.style.display = "block";
+    locationT.textContent = currentchef.location;
+    restaurantT.textContent = currentchef.restaurant;
 }
 
 
@@ -214,7 +210,6 @@ function showdeets() {
 
 
 // delete word from array
-
 
 //next button
 nextbutton.onclick = function () {
@@ -242,7 +237,7 @@ function playTurn(play) {
         document.getElementById('guess').innerHTML = usedletters;
     }
 
-    // // replacing letters
-    // if (userplay === 
+    // replacing letters
+
 
 }
