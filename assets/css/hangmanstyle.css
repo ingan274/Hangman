@@ -63,6 +63,10 @@ body {
      color: white;
  }
 
+ #guess {
+     text-align: left;
+ }
+
  /* Header */
 
 header {
@@ -119,6 +123,38 @@ header {
     color:white;
 }
 
+/* TIP */
+
+.tip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Tooltip text */
+  .hint {
+    visibility: hidden;
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.8);;
+    color: black;
+    text-align: left;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 4px;
+    font-family: 'Hind', sans-serif;
+    font-weight: 400;
+    font-size: 13pt;
+    text-transform: none;
+   
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tip:hover .hint {
+    visibility: visible;
+  }
+
 
  /* GAME PLAY */
 
@@ -144,9 +180,11 @@ header {
 .displayword {
     border: 1px solid white ;
     padding: 10px auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 60px;
+    padding-bottom: 5px;
     margin: 0px auto;
+    margin-top: 10px;
+    margin-bottom: 0px;
     width: 90%;
     height: 200px;
 }
@@ -154,7 +192,7 @@ header {
 .info {
     padding-top: 10px;
     padding-bottom: 10px;
-    margin: 20px auto;
+    margin: 0px auto;
     width: 100%;
     height: 180px;
     text-align: left;
