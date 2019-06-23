@@ -84,7 +84,7 @@ var chef = [
 
 // References to HTML =======================================================================
 
-var remaining = 10
+var remaining = 10;
 var remainT = document.getElementById('remain');
 
 var guess;
@@ -101,7 +101,7 @@ gamewinT.textContent = gamewins;
 
 var currentchef;
 
-var chefname
+var chefname;
 var displayword;
 var displaychef = document.getElementById('displayword');
 
@@ -159,10 +159,9 @@ function selectchef() {
     chefface = currentchef.image;
     // restaurant
     restaurant = currentchef.restaurant;
-    console.log(restaurant)
     // location
     donde = currentchef.donde
-    console.log(donde)
+
 };
 
 // setting up location and Restuarant
@@ -194,6 +193,8 @@ function initializeGame() {
     document.getElementById('hint').innerHTML = hintlink;
     // next button
     nextbutton.style.display = "none";
+    document.getElementById('guess').innerHTML = "";
+    usedletters = [];
 }
 
 //convert to underscore
@@ -203,76 +204,105 @@ function underscorechange() {
 };
 
 
-//reset function
-var guessreset = function () {
-    remaining = 10;
-    document.getElementById('guess').innerHTML = "";
-    usedletters = [];
+// Updated status  of Wins thus far ====== UNDERSTAND????
+function byechef() {
+    var finishedchef = chef.indexOf(currentchef);
+    chef.splice(movieToDelete, 1);
+    wordsremain.textContent = chef.length;
 }
 
-    // Updated status  of Wins thus far
+// Updated status  of Wins thus far ====== UNDERSTAND????
+function gamestatus() {
+    if (listOfMovies.length > 0) {
+        nextbutton.style.display = "block";
+    }
+    else {
+        resultT.innerHTML = resultT.textContent + "<br>Thanks for playing! Refresh to Play Again.";
+    }
+}
 
 
-    // delete word from array
 
 
-    // Actually Playing the games
+// Actually Playing the games
 
-    function playTurn(play) {
-        guess = play.key;
-        guess = guess.toLowerCase();
-        // limiting to just letters pressed
-        if (parseInt(guess) || guess === "0") {
-            return;
-        }
+function playTurn(play) {
+    guess = play.key;
+    guess = guess.toUpperCase();
+    chefname = chefname.toUpperCase();
+    // limiting to just letters pressed
+    if (parseInt(guess) || guess === "0") {
+        return;
+    }
 
-        // Guess history
-        if (usedletters.indexOf(guess) >= 0) {
-            return;
-            // this makes that repeating number not affect current changes
-        } else {
-            //this pushes the players incorrect guess to the usedArray and writes it to the HTML
-            usedletters.push(guess);
-            document.getElementById('guess').innerHTML = usedletters;
-        }
+    // Guess history
+    if (usedletters.indexOf(guess) >= 0) {
+        return;
+        // this makes that repeating number not affect current changes
+    } else {
+        //this pushes the players incorrect guess to the usedArray and writes it to the HTML
+        usedletters.push(guess);
+        document.getElementById('guess').innerHTML = usedletters;
+    }
 
-        // User Guess match Letter ======
-        // splitting up words into letters
-        var wordletter = chefname.split("");
+    // User Guess match Letter ======
+    var wordletter = chefname.split("");
 
-        if (guess === wordletter) {
+    for (var i = 0; i < wordletter.length; i++) {
+        if (guess === wordletter[i]) {
+            // splitting up words into letters
+            var wordletter = chefname.split("");
+            wordletter[i] = guess;
+            displayword = wordletter.join("");
+            displaychef.textContent = displayword;
             remaining--;
-            selectedletter();
-            console.log(displayword)
+            console.log ("remain down one")
         }
-
-        // win
-        if (displayword === chefname) {
-            win++;
-            gamewins++;
-            wordsremain--;
-            resultT.textContent = "You Got it!";
-            chefpic.style.display = "block";
-            chefstatT.style.display = "block";
-            nextbutton.style.display = "block";
-
-        }
-        // lose
-        if (remiaining === 0) {
-            wordsremain--;
-            displaychef.textContent = chefname;
-            resultT.textContent = "Oops! Better luck next time.";
-            chefpic.style.display = "block";
-            chefstatT.style.display = "block";
-            nextbutton.style.display = "block";
-        }
-
-
-
     }
 
-    //next button
-    nextbutton.onclick = function () {
-        nextbutton.style.display = "none";
-        initializeGame();
-    }
+
+
+
+
+
+
+    // if (!playerRepeatsGuess) {
+    //     lettersGuessed.push(playerGuess);
+    //     var formattedLettersGuessed = lettersGuessed.join(", ");
+    //     lettersGuessedElement.textContent = formattedLettersGuessed.toUpperCase();
+    //     numberOfGuesses--;
+    //     numberOfGuessesElement.textContent = numberOfGuesses;
+    // }
+
+    // // win
+    // if (displayword === chefname) {
+    //     win++;
+    //     gamewins++;
+    //     resultT.textContent = "You Got it!";
+    //     chefpic.style.display = "block";
+    //     chefstatT.style.display = "block";
+    //     nextbutton.style.display = "block";
+    //     gamestatus();
+    //     byechef();
+
+    // }
+    // // lose
+    // if (remiaining === 0) {
+    //     displaychef.textContent = chefname;
+    //     resultT.textContent = "Oops! Better luck next time.";
+    //     chefpic.style.display = "block";
+    //     chefstatT.style.display = "block";
+    //     nextbutton.style.display = "block";
+    //     gamestatus();
+    //     byechef();
+    // }
+
+
+
+}
+
+//next button
+nextbutton.onclick = function () {
+    nextbutton.style.display = "none";
+    initializeGame();
+}
