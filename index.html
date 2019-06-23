@@ -29,7 +29,7 @@
         <p class='part3 intro'>Guess which Chef's Table chef I am thinking (Choose your utensil):
         </p>
         <button type='button' class='part3 fork start button' id='fork'>Fork</button> <br>
-        <button type='button' class='part3 spoon start button'id='spoon'>Spoon</button><br>
+        <button type='button' class='part3 spoon start button' id='spoon'>Spoon</button><br>
         <button type='button' class='part3 knife start button' id='knife'>Knife</button><br>
         <button type='button' class='part3 chopstick start button ' id='chopstick'>Chopstick</button>
         <!--WHY DO I NEED BUTTON IN CLASS AND WITHING <> FOR THE CSS TO WORK FOR PSUEDO CLASSES?-->
@@ -40,8 +40,8 @@
         <div class='displayword part1' id='displayword'></div>
         <div class='gamesstats container-fluid'>
             <div class='row'>
-                <p class='part4 col-4 single'>Guesses Remaining: <span id='remain' class='answer'></span></p>
-                <p class='part4 col-5 single'>Letters Guessed: <span id='guess' class='answer'></span></p>
+                <p class='part4 col-4 single'>Guesses Remaining: <span id='remain' class='remain'></span></p>
+                <p class='part4 col-5 single'>Letters Guessed: <span id='guess' class='guess'></span></p>
                 <p class='part4 col-3 single tip'> Hint Here <span id='hint' class='hint'>example</span></p>
             </div>
             <div class='row'>
@@ -57,11 +57,14 @@
                 <div class='col-1'></div>
                 <div class='stat col-6'>
                     <div class='info' id='chefstat'>
-                        <p class='part1r'>Restaurant: <spam id='restaurant' class='part2r'></spam></p>
-                        <p class='part1r'>Location: <spam id='location' class='part2r'></spam></p>
+                        <p class='part1r'>Restaurant: <spam id='restaurant' class='part2r'></spam>
+                        </p>
+                        <p class='part1r'>Location: <spam id='donde' class='part2r'></spam>
+                        </p>
+
+                        <!--Provides stats and additional info-->
+                        <h2 class='part2r' id='result'></h2>
                     </div>
-                    <!--Provides stats and additional info-->
-                    <h2 class='part2r' id='result'></h2>  
                 </div>
                 <!--provides that result-->
                 <button type='button' class=" part2r next-button button" id="next">Guess Next Chef</button>
