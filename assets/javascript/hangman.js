@@ -85,7 +85,7 @@ var chef = [
 // References to HTML =======================================================================
 
 var remaining = 10;
-var remainT = document.getElementById('remain');
+
 
 var guess;
 var guessT = document.getElementById('guess');
@@ -173,8 +173,8 @@ document.getElementById('restaurant').innerHTML = restaurant;
 function initializeGame() {
     document.onkeyup = playTurn;
     // setting remaining to 10
-    remaining = 10;
-    remainT.textContent = remaining;
+    var remaining = 10;
+    document.getElementById('remain').textContent = remaining;
     // allowing letters used to be displayed
     usedletters = [];
     guessT.textContent = usedletters;
@@ -191,8 +191,7 @@ function initializeGame() {
     resultT.textContent = "";
     // hint for chef
     document.getElementById('hint').innerHTML = hintlink;
-    // next button
-    nextbutton.style.display = "none";
+    // guess reset
     document.getElementById('guess').innerHTML = "";
     usedletters = [];
 }
@@ -207,13 +206,13 @@ function underscorechange() {
 // Updated status  of Wins thus far ====== UNDERSTAND????
 function byechef() {
     var finishedchef = chef.indexOf(currentchef);
-    chef.splice(movieToDelete, 1);
+    chef.splice(finishedchef, 1);
     wordsremain.textContent = chef.length;
 }
 
 // Updated status  of Wins thus far ====== UNDERSTAND????
 function gamestatus() {
-    if (listOfMovies.length > 0) {
+    if (chef.length > 0) {
         nextbutton.style.display = "block";
     }
     else {
@@ -240,39 +239,33 @@ function playTurn(play) {
         return;
         // this makes that repeating number not affect current changes
     } else {
-        //this pushes the players incorrect guess to the usedArray and writes it to the HTML
+        //this pushes the players incorrect guess to the usedArray and writes it to the HTML and remian goes down
         usedletters.push(guess);
-        document.getElementById('guess').innerHTML = usedletters;
+        var guess = usedletters.join(", ");
+        document.getElementById('guess').innerHTML = guess.toUpperCase();
+        remaining--;
+        document.getElementById('remain').innerHTML = remaining;
+        console.log("remianing: " + remaining)
+    }
+//  WITH THIS WHY DOES THIS KEEP GOING NEGATIVE STILL????????????????????????????????????
+     if (remaining < 0 ) {
+        return;
     }
 
     // User Guess match Letter ======
-    var wordletter = chefname.split("");
+    // var wordletter = chefname.split("");
 
-    for (var i = 0; i < wordletter.length; i++) {
-        if (guess === wordletter[i]) {
-            // splitting up words into letters
-            var wordletter = chefname.split("");
-            wordletter[i] = guess;
-            displayword = wordletter.join("");
-            displaychef.textContent = displayword;
-            remaining--;
-            console.log ("remain down one")
-        }
-    }
-
-
-
-
-
-
-
-    // if (!playerRepeatsGuess) {
-    //     lettersGuessed.push(playerGuess);
-    //     var formattedLettersGuessed = lettersGuessed.join(", ");
-    //     lettersGuessedElement.textContent = formattedLettersGuessed.toUpperCase();
-    //     numberOfGuesses--;
-    //     numberOfGuessesElement.textContent = numberOfGuesses;
+    // for (var i = 0; i < wordletter.length; i++) {
+    //     if (guess === wordletter[i]) {
+    //         // splitting up words into letters
+    //         wordletter = chefname.split("");
+    //         wordletter[i] = guess;
+    //         displaychef.textContent = wordletter.join("");
+    //         remaining--;
+    //         console.log("remain down one")
+    //     }
     // }
+
 
     // // win
     // if (displayword === chefname) {
@@ -286,16 +279,20 @@ function playTurn(play) {
     //     byechef();
 
     // }
-    // // lose
-    // if (remiaining === 0) {
-    //     displaychef.textContent = chefname;
-    //     resultT.textContent = "Oops! Better luck next time.";
-    //     chefpic.style.display = "block";
-    //     chefstatT.style.display = "block";
-    //     nextbutton.style.display = "block";
-    //     gamestatus();
-    //     byechef();
-    // }
+
+    // lose
+    //  WHY ARE MY IMAGES NOT WORKING ????????????????????????????????????
+    if (remaining === 0) {
+        displaychef.textContent = chefname;
+        chefpic.style.display = 'block';
+        console.log('display pic')
+        chefstatT.style.display = 'block';
+        console.log('display info')
+        resultT.textContent = "Oops! Better luck next time.";
+        nextbutton.style.display = 'block';
+        gamestatus();
+        byechef();
+    } 
 
 
 
