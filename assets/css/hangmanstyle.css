@@ -97,7 +97,7 @@ header {
 }
 
 .resultcontainer {
-    display: hidden;
+    /* display: hidden; */
 }
 
 #result {
@@ -209,6 +209,7 @@ header {
     height: 200px;
     widows: 200px;
 }
+
 
 
 
