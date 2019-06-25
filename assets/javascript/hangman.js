@@ -164,20 +164,24 @@ function selectchef() {
     document.getElementById('donde').innerHTML = donde;
 };
 
-// setting up location and Restuarant
-
-
+// Reset
+var guessreset = function () {
+    remain = 10;
+    document.getElementById('guess').innerHTML = "";
+    usedletters = [];
+    rightletters = [];
+}
 
 
 //Initialize the GAME 
 
 function initializeGame() {
-    document.onkeyup = playTurn;
     // setting remaining to 10
     var remain = 10;
     document.getElementById('remain').textContent = remain;
     // allowing letters used to be displayed
     usedletters = [];
+    rightletters = [];
     guessT.textContent = usedletters;
     // choosing current chef and all details
     currentchef = selectchef();
@@ -195,14 +199,14 @@ function initializeGame() {
     usedletters = [];
     // show words remain
     document.getElementById('wordsremain').innerHTML = wordsremain;
+    document.onkeyup = playTurn;
 }
 
 //convert to underscore
 function underscorechange() {
     var displayunderscore = chefname.toLowerCase().replace(/[a-z]/g, "_")
-    return displayunderscore
-};
-
+    return displayunderscore;
+}
 
 // Updated status of Wins thus far 
 function byechef() {
@@ -221,9 +225,7 @@ function gamestatus() {
     }
 }
 
-
-// Actually Playing the games
-
+// Actually Playing the game
 function playTurn(play) {
     guess = play.key;
     guess = guess.toUpperCase();
@@ -233,18 +235,16 @@ function playTurn(play) {
         return;
     }
 
-    // // sorting letters out
-    // var wordletter = chefname.split("");
-
     // pushing the letters into the right array
     // preventing from being pressed twice and affecting guess change
-    if (usedletters.indexOf(guess) >= 0 || rightletters.indexOf(guess) >= 0 ) {
+    if (usedletters.indexOf(guess) >= 0 || rightletters.indexOf(guess) >= 0) {
         return
     } else if (chefname.includes(guess)) {
         // pushing word letters to right letter array
         rightletters.push(guess);
-        remaining--;
         document.getElementById('remain').innerHTML = remaining;
+        console.log(rightletters)
+
     } else {
         //this pushes the players incorrect guess to the usedArray and writes it to the HTML and remian goes down
         usedletters.push(guess);
@@ -252,44 +252,48 @@ function playTurn(play) {
         document.getElementById('guess').innerHTML = guess.toUpperCase();
         remaining--;
         document.getElementById('remain').innerHTML = remaining;
+        if (remaining < 0) {
+            return;
+        }
+        console.log(usedletters)
     }
 
-
-
+    // what i need to figure out:
     //  WITH THIS WHY DOES THIS KEEP GOING NEGATIVE STILL????????????????????????????????????
-    if (remaining < 0) {
-        return;
-    }
+    // how to change the _ to letters
+    // how the next round, when you click a previous letter from previous round it down go down by more than 1 (check reset)
 
     // User Guess match Letter ======
+
     for (var i = 0; i < chefname.length; i++) {
-        // displaying corrent letter
-        if (rightletters.contains(chefname[i])) {
+        // displaying correct letter
+        if (rightletters.includes(chefname[i])) {
             displayword += chefname[i];
+            console.log("correct:" + displayword)
         } else {
-            displayword += "_";
+            displayword += "_";  
         }
     }
 
 
-    // // // win
-    // // if (displayword === chefname) {
-    // //     win++;
-    // //     gamewins++;
-    // //     resultT.textContent = "You Got it!";
-    // //     chefpic.style.visibility = 'visible';
-    // //     chefstatT.style.visibility = 'visible';
-    // //     nextbutton.style.visibility = 'visible';
-    // //     gamestatus();
-    // //     byechef();
-    // //     wordsremain--;
-    // //     document.getElementById('wordsremain').innerHTML = wordsremain;
+
+    // // win
+    // if (displayword === chefname) {
+    //     win++;
+    //     gamewins++;
+    //     resultT.textContent = "You Got it!";
+    //     chefpic.style.visibility = 'visible';
+    //     chefstatT.style.visibility = 'visible';
+    //     nextbutton.style.visibility = 'visible';
+    //     gamestatus();
+    //     byechef();
+    //     wordsremain--;
+    //     document.getElementById('wordsremain').innerHTML = wordsremain;
 
 
-    // // }
+    // }
 
     // lose
-    //  WHY ARE MY IMAGES NOT WORKING ????????????????????????????????????
     if (remaining === 0) {
         displaychef.textContent = chefname;
         chefpic.style.display = "block";
@@ -301,14 +305,14 @@ function playTurn(play) {
         wordsremain--;
         document.getElementById('wordsremain').innerHTML = wordsremain;
 
+    } else if (remaining < 0) {
+        return;
     }
-
-
 
 }
 
 //next button
-nextbutton.onclick = function () {
-    nextbutton.style.display = "none";
-    initializeGame();
-}
+// nextbutton.onclick = function () {
+//     nextbutton.style.display = "none";
+//     initializeGame();
+// }
