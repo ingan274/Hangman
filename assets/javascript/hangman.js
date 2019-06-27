@@ -210,7 +210,9 @@ function underscorechange() {
 // Updated status of Wins thus far 
 function byechef() {
     var byecheflist = chef.indexOf(currentchef);
+    console.log (byecheflist)
     chef.splice(byecheflist, 1);
+    
     wordremain.textContent = chef.length;
 }
 
@@ -238,9 +240,12 @@ function playTurn(play) {
         document.getElementById('guess').innerHTML = guess.toUpperCase();
         remaining--;
         document.getElementById('remain').innerHTML = remaining;
-        if (remaining < 0) {
-            return;
-        }
+    }
+
+    if (remaining < 0) {
+        nextbutton.style.display = "none";
+        document.getElementById('wordsremain').innerHTML = wordsremain;
+        initializeGame();
     }
     // User Guess match Letter ======
 
@@ -289,9 +294,11 @@ nextbutton.onclick = function () {
 function gamestatus() {
     if (chef.length > 0) {
         nextbutton.style.display = "block";
-    }
-    else if (chef.length === 0) {
-        outcome.innerHTML = outcome.textContent + "<br>Thanks for playing! Refresh to Play Again.";
+    } else if (chef.length === 0) {
+        outcome.innerHTML = outcome.textContent + "<br> xThanks for playing! Refresh to Play Again.";
+        console.log(outcome)
+        wordsremain = 0;
+        nextbutton.style.display = "none";
     }
 }
 
