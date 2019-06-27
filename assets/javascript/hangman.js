@@ -214,16 +214,6 @@ function byechef() {
     wordremain.textContent = chef.length;
 }
 
-// Updated status  of Wins thus far 
-function gamestatus() {
-    if (chef.length > 0) {
-        nextbutton.style.display = "block";
-    }
-    else if (chef.length === 0) {
-        resultT.innerHTML = resultT.textContent + "<br>Thanks for playing! Refresh to Play Again.";
-    }
-}
-
 // Actually Playing the game
 function playTurn(play) {
     guess = play.key;
@@ -252,7 +242,6 @@ function playTurn(play) {
             return;
         }
     }
-    console.log(usedletters)
     // User Guess match Letter ======
 
     for (var i = 0; i < chefname.length; i++) {
@@ -276,6 +265,7 @@ function playTurn(play) {
         resultT.style.display = "block";
         nextbutton.style.display = 'block';
         gamestatus();
+        byechef()
     } else if (remaining === 0) { // losing the game
         displaychef.textContent = chefname;
         chefpic.style.display = "block";
@@ -283,6 +273,7 @@ function playTurn(play) {
         outcome.textContent = "Oops! Better luck next time.";
         nextbutton.style.display = 'block';
         gamestatus();
+        byechef()
     }
 
 }
@@ -291,6 +282,17 @@ function playTurn(play) {
 nextbutton.onclick = function () {
     nextbutton.style.display = "none";
     document.getElementById('wordsremain').innerHTML = wordsremain;
-    byechef()
     initializeGame();
 }
+
+// Updated status  of Wins thus far 
+function gamestatus() {
+    if (chef.length > 0) {
+        nextbutton.style.display = "block";
+    }
+    else if (chef.length === 0) {
+        outcome.innerHTML = outcome.textContent + "<br>Thanks for playing! Refresh to Play Again.";
+    }
+}
+
+// why my current chef is not leaving the array? and why is my 0 going to negative?
