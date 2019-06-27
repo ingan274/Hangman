@@ -90,14 +90,15 @@ var guess;
 var guessT = document.getElementById('guess');
 var usedletters = [];
 var rightletters = [];
+var usedchefs = [];
 
-var wordremain = document.getElementById('wordsremain');
-wordremain.textContent = chef.length;
+var wordremainT = document.getElementById('wordsremain');
+var wordsremain = 10;
 
 var gamewins = 0;
 var gamewinT = document.getElementById('wins');
 
-
+var randomchef;
 var currentchef;
 
 var chefname;
@@ -132,6 +133,7 @@ function start(button) {
         opening.style.display = "none";
         game.style.display = "block";
         initializeGame();
+
     }
 
 };
@@ -144,34 +146,6 @@ start(spoonbutton);
 
 
 // PLAY THE GAME
-
-// select chef
-function selectchef() {
-    var randomchef = chef[Math.floor(Math.random() * chef.length)];
-    currentchef = randomchef;
-    // pulling name
-    chefname = currentchef.name;
-    console.log(chefname);
-    // set hint = 
-    hintlink = currentchef.hint;
-    // set image = 
-    chefface = currentchef.image;
-    // restaurant
-    restaurant = currentchef.restaurant;
-    document.getElementById('restaurant').innerHTML = restaurant;
-    // location
-    donde = currentchef.donde
-    document.getElementById('donde').innerHTML = donde;
-};
-
-// Reset
-var guessreset = function () {
-    document.getElementById('guess').innerHTML = "";
-    usedletters = [];
-    rightletters = [];
-}
-
-
 //Initialize the GAME 
 
 function initializeGame() {
@@ -183,7 +157,7 @@ function initializeGame() {
     rightletters = [];
     guessT.textContent = usedletters;
     // choosing current chef and all details
-    currentchef = selectchef();
+    currentchef = byechef();
     // allowing the word display to be converted to _
     displayword = underscorechange();
     displaychef.textContent = displayword;
@@ -197,24 +171,39 @@ function initializeGame() {
     document.getElementById('guess').innerHTML = "";
     usedletters = [];
     // show words remain
-    document.getElementById('wordsremain').innerHTML = chef.length;
+    document.getElementById('wordsremain').innerHTML = wordsremain;
     document.onkeyup = playTurn;
 }
 
-//convert to underscore
-function underscorechange() {
-    var displayunderscore = chefname.toLowerCase().replace(/[a-z]/g, "_")
-    return displayunderscore;
+// non-repeating chefs
+function byechef() {
+    var selected = selectchef();
+    if (usedchefs.indexOf(selected) >= 0) {
+        selectchef();
+    } ;
 }
 
-// Updated status of Wins thus far 
-function byechef() {
-    var byecheflist = chef.indexOf(currentchef);
-    console.log (byecheflist)
-    chef.splice(byecheflist, 1);
-    
-    wordremain.textContent = chef.length;
+
+function selectchef() {
+    randomchef = chef[Math.floor(Math.random() * chef.length)];
+    currentchef = randomchef;
+    // pulling name
+    chefname = currentchef.name;
+    // set hint = 
+    hintlink = currentchef.hint;
+    // set image = 
+    chefface = currentchef.image;
+    // restaurant
+    restaurant = currentchef.restaurant;
+    document.getElementById('restaurant').innerHTML = restaurant;
+    // location
+    donde = currentchef.donde
+    document.getElementById('donde').innerHTML = donde;
+    // Pushing to usedchef array
+    usedchefs.push(currentchef)
+    console.log(usedchefs)
 }
+
 
 // Actually Playing the game
 function playTurn(play) {
@@ -264,13 +253,15 @@ function playTurn(play) {
     if (displayword === chefname) {
         gamewins++;
         gamewinT.textContent = gamewins;
-        console.log(gamewins)
         outcome.textContent = "You Got it! Nice Job!";
         chefpic.style.display = "block";
         resultT.style.display = "block";
         nextbutton.style.display = 'block';
         gamestatus();
-        byechef()
+        guessreset();
+        wordsremain--;
+        wordremainT.textContent = wordsremain;
+
     } else if (remaining === 0) { // losing the game
         displaychef.textContent = chefname;
         chefpic.style.display = "block";
@@ -278,9 +269,25 @@ function playTurn(play) {
         outcome.textContent = "Oops! Better luck next time.";
         nextbutton.style.display = 'block';
         gamestatus();
-        byechef()
+        guessreset();
+        wordsremain--;
+        wordremainT.textContent = wordsremain;
     }
 
+
+}
+
+// Reset
+var guessreset = function () {
+    document.getElementById('guess').innerHTML = "";
+    usedletters = [];
+    rightletters = [];
+}
+
+//convert to underscore
+function underscorechange() {
+    var displayunderscore = chefname.toLowerCase().replace(/[a-z]/g, "_")
+    return displayunderscore;
 }
 
 // next button
@@ -296,7 +303,6 @@ function gamestatus() {
         nextbutton.style.display = "block";
     } else if (chef.length === 0) {
         outcome.innerHTML = outcome.textContent + "<br> xThanks for playing! Refresh to Play Again.";
-        console.log(outcome)
         wordsremain = 0;
         nextbutton.style.display = "none";
     }
