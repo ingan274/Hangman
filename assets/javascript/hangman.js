@@ -157,7 +157,7 @@ function initializeGame() {
     rightletters = [];
     guessT.textContent = usedletters;
     // choosing current chef and all details
-    currentchef = byechef();
+    currentchef = selectchef();
     // allowing the word display to be converted to _
     displayword = underscorechange();
     displaychef.textContent = displayword;
@@ -173,14 +173,6 @@ function initializeGame() {
     // show words remain
     document.getElementById('wordsremain').innerHTML = wordsremain;
     document.onkeyup = playTurn;
-}
-
-// non-repeating chefs
-function byechef() {
-    var selected = selectchef();
-    if (usedchefs.indexOf(selected) >= 0) {
-        selectchef();
-    } ;
 }
 
 
@@ -200,8 +192,18 @@ function selectchef() {
     donde = currentchef.donde
     document.getElementById('donde').innerHTML = donde;
     // Pushing to usedchef array
-    usedchefs.push(currentchef)
-    console.log(usedchefs)
+    usedchefs.push(chefname)
+}
+
+
+// non-repeating chefs
+function byechef() {
+    var nochef = chef.slice(0);
+    nochef.forEach((element) => {
+  if(usedchefs.includes(element['name'])){
+    let removeIndex = chef.map((item) => item['name']).indexOf(element['name']);
+    chef.splice(removeIndex, 1);
+  }});
 }
 
 
@@ -248,7 +250,6 @@ function playTurn(play) {
         }
     }
 
-
     // win
     if (displayword === chefname) {
         gamewins++;
@@ -257,24 +258,23 @@ function playTurn(play) {
         chefpic.style.display = "block";
         resultT.style.display = "block";
         nextbutton.style.display = 'block';
-        gamestatus();
-        guessreset();
         wordsremain--;
         wordremainT.textContent = wordsremain;
-
+        gamestatus();
+        guessreset();
+        byechef();
     } else if (remaining === 0) { // losing the game
         displaychef.textContent = chefname;
         chefpic.style.display = "block";
         resultT.style.display = "block";
         outcome.textContent = "Oops! Better luck next time.";
         nextbutton.style.display = 'block';
-        gamestatus();
-        guessreset();
         wordsremain--;
         wordremainT.textContent = wordsremain;
+        gamestatus();
+        guessreset();
+        byechef();
     }
-
-
 }
 
 // Reset
@@ -290,22 +290,19 @@ function underscorechange() {
     return displayunderscore;
 }
 
-// next button
-nextbutton.onclick = function () {
-    nextbutton.style.display = "none";
-    document.getElementById('wordsremain').innerHTML = wordsremain;
-    initializeGame();
-}
-
 // Updated status  of Wins thus far 
 function gamestatus() {
-    if (chef.length > 0) {
+    if (wordsremain > 0) {
         nextbutton.style.display = "block";
-    } else if (chef.length === 0) {
-        outcome.innerHTML = outcome.textContent + "<br> xThanks for playing! Refresh to Play Again.";
+    } else if (wordsremain === 0) {
+        outcome.innerHTML = outcome.textContent + "<br> Thanks for playing! Refresh to Play Again.";
         wordsremain = 0;
         nextbutton.style.display = "none";
     }
 }
 
-// why my current chef is not leaving the array? and why is my 0 going to negative?
+// next button
+nextbutton.onclick = function () {
+    nextbutton.style.display = "none";
+    initializeGame();
+}

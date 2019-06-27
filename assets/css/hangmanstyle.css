@@ -219,6 +219,7 @@ header {
 #chefimage {
     height: 200px;
     widows: 200px;
+    margin: 0px auto;
 }
 
 
