@@ -195,14 +195,15 @@ function selectchef() {
     usedchefs.push(chefname)
 }
 
-
 // non-repeating chefs
 function byechef() {
     var nochef = chef.slice(0);
-    nochef.forEach((element) => {
+    nochef.forEach(function(element) {
   if(usedchefs.includes(element['name'])){
-    let removeIndex = chef.map((item) => item['name']).indexOf(element['name']);
+    let removeIndex = chef.map(function(item) {
+        return item['name']}).indexOf(element['name']);
     chef.splice(removeIndex, 1);
+    console.log(chef.length)
   }});
 }
 
@@ -238,8 +239,8 @@ function playTurn(play) {
         document.getElementById('wordsremain').innerHTML = wordsremain;
         initializeGame();
     }
-    // User Guess match Letter ======
 
+    // User Guess match Letter ======
     for (var i = 0; i < chefname.length; i++) {
         // displaying correct letter
         if (rightletters.includes(chefname[i])) {
