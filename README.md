@@ -1,5 +1,7 @@
 # Chef's Table, The Hangman Game
 Hungry for a new and improved Hangman? Will here it is! Test your Chef's Table Knowledge by guessing which Chef I am referring to!
+<br>
+Play Here: https://ingan274.github.io/Hangman/
 # How to play
 1. Press key on keyboard to apply guess
 2. A hint is also available to every round
