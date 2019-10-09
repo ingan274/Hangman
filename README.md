@@ -6,5 +6,10 @@ Play Here: https://ingan274.github.io/Hangman/
 1. Press key on keyboard to apply guess
 2. A hint is also available to every round
 3. There are 10 rounds, identifying a unique chef! Let's see if you can guess them all!
+
+## Future Developments
+* Make it multiple players
+* Add more animations and enhancing UX/UI
+
 # About this game
 Week 4 assigment for the June 2019 cohort of UCLA Boot Camp. Built using HTML, CSS, JavaScript (vanilla).
